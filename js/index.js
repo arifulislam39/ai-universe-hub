@@ -12,18 +12,35 @@ const displayCards = cards => {
         cardDiv.classList.add('div');
         cardDiv.innerHTML = `
         <div class="card h-100">
-                        <img src="${card.image}" class="card-img-top" alt="...">
-                        <div class="card-body">
+            <img src="${card.image}" class="card-img-top p-4 rounded-5" alt="...">
+                <div class="card-body">
                         <h5 class="card-title">Features
                         </h5>
+                        <ol>
+                        <li>${card.features[0]}</li>
+                        <li>${card.features[1]}</li>
+                        <li>${card.features[2]}</li>
+                        </ol>
                         <hr style="height:2px;border-width:0;color:gray;background-color:gray">
                         <h5 class="card-title">${card.name}</h5>
-                            <p class="card-text">${card.published_in}</p>
+
+                        <div class="d-flex justify-content-between">
+                         <div class="d-flex">
+
+                          <div><i class="fa-regular fa-calendar-days"></i></div>
+
+                          <div><p class="card-text">${card.published_in}</p></div>
+
+                         </div>
+                         <div>
+                         <i class="fa-solid fa-arrow-right text-danger text-left"></i>
+                         </div>
                         </div>
-                    </div>
+                </div>
+         </div>
         `;
         CardsContainer.appendChild(cardDiv);
-        
+
     });
 }
 

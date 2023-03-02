@@ -14,9 +14,11 @@ const displayCards = cards => {
         <div class="card h-100">
                         <img src="${card.image}" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural
-                                lead-in to additional content. This content is a little bit longer.</p>
+                        <h5 class="card-title">Features
+                        </h5>
+                        <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+                        <h5 class="card-title">${card.name}</h5>
+                            <p class="card-text">${card.published_in}</p>
                         </div>
                     </div>
         `;

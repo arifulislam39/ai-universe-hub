@@ -33,7 +33,7 @@ const displayCards = cards => {
 
                          </div>
                          <div>
-                         <i class="fa-solid fa-arrow-right text-danger text-left"></i>
+                         <i class="fa-solid fa-arrow-right text-danger text-left" onClick="showDetails('${data.data.tools[0]}')"></i>
                          </div>
                         </div>
                 </div>
@@ -42,6 +42,12 @@ const displayCards = cards => {
         CardsContainer.appendChild(cardDiv);
 
     });
+}
+
+const showDetails =id => {
+    let url = `https://openapi.programming-hero.com/api/ai/tool/${data.data.tools[0]}`;
+    console.log(url)
+
 }
 
 loadCards();

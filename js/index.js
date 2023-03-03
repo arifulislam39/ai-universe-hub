@@ -1,12 +1,19 @@
+
+// load all cards 
+
 const loadCards = async () => {
-    const URL = `https://openapi.programming-hero.com/api/ai/tools`;
+    const URL = `https://openapi.programming-hero.com/api/ai/tools/`;
     const res = await fetch(URL);
     const data = await res.json();
-    displayCards(data.data.tools);
+    displayCards(data.data.tools.slice(0, 6));
 }
 
-const displayCards = cards => {
+// display all cards 
+const displayCards = (cards) => {
+
+
     CardsContainer = document.getElementById('cards-container');
+    CardsContainer.innerHTML = "";
     cards.forEach(card => {
         const cardDiv = document.createElement('div');
         cardDiv.classList.add('div');
@@ -33,7 +40,7 @@ const displayCards = cards => {
 
                          </div>
                          <div>
-                         <i class="fa-solid fa-arrow-right text-danger text-left" onClick="showDetails('${data.data.tools[0]}')"></i>
+                         <i class="fa-solid fa-arrow-right text-danger text-left"></i>
                          </div>
                         </div>
                 </div>
@@ -44,10 +51,11 @@ const displayCards = cards => {
     });
 }
 
-const showDetails =id => {
-    let url = `https://openapi.programming-hero.com/api/ai/tool/${data.data.tools[0]}`;
-    console.log(url)
-
+const seeMore = async () => {
+    const URL = `https://openapi.programming-hero.com/api/ai/tools/`;
+    const res = await fetch(URL);
+    const data = await res.json();
+    displayCards(data.data.tools);
 }
 
 loadCards();

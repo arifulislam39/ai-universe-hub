@@ -67,8 +67,35 @@ const arrowButton = (id) => {
 
     const url = ` https://openapi.programming-hero.com/api/ai/tool/${id}`;
     fetch(url)
-        .then(res => res.json()).then(data => console.log(data))
+        .then(res => res.json())
+        .then(data => console.log(data))
 };
 
 
+// modal section 
+
+/*const showModal = (value) => {
+    const container = document.getElementById("modal-info");
+    const div = document.createElement("div");
+    div.classList.add("modal");
+    div.innerHTML = `
+    
+    <div class="modal-box relative">
+    <label
+      for="my-modal-3"
+      class="btn btn-sm btn-circle absolute right-2 top-2"
+      >✕</label
+    >
+    <img src="" alt="">
+    <h3 class="text-lg font-bold">
+    </h3>
+    <p class="py-4">
+      Population : '${value.tool_name}'
+    </p>
+  </div>
+    `;
+    container.appendChild(div);
+};*/
+
+arrowButton();
 loadCards();

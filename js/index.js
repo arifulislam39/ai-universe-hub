@@ -51,6 +51,8 @@ const displayCards = (cards) => {
     });
 }
 
+
+// see more button 
 const seeMore = async () => {
     const URL = `https://openapi.programming-hero.com/api/ai/tools/`;
     const res = await fetch(URL);

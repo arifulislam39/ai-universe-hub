@@ -15,6 +15,7 @@ const displayCards = (cards) => {
     CardsContainer = document.getElementById('cards-container');
     CardsContainer.innerHTML = "";
     cards.forEach(card => {
+        //console.log(card.id)
         const cardDiv = document.createElement('div');
         cardDiv.classList.add('div');
         cardDiv.innerHTML = `
@@ -40,7 +41,7 @@ const displayCards = (cards) => {
 
                          </div>
                          <div>
-                         <i class="fa-solid fa-arrow-right text-danger text-left"></i>
+                         <i class="fa-solid fa-arrow-right text-danger text-left" onClick="arrowButton('${card.id}')"></i>
                          </div>
                         </div>
                 </div>
@@ -59,5 +60,15 @@ const seeMore = async () => {
     const data = await res.json();
     displayCards(data.data.tools);
 }
+
+// arrow button 
+const arrowButton = (id) => {
+    //console.log(id)
+
+    const url = ` https://openapi.programming-hero.com/api/ai/tool/${id}`;
+    fetch(url)
+        .then(res => res.json()).then(data => console.log(data))
+};
+
 
 loadCards();

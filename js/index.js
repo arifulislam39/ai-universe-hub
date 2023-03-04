@@ -10,7 +10,7 @@ const loadCards = async () => {
 
 // display all cards 
 const displayCards = (cards) => {
-
+    toggleSpinner(false);
 
     CardsContainer = document.getElementById('cards-container');
     CardsContainer.innerHTML = "";
@@ -41,7 +41,7 @@ const displayCards = (cards) => {
 
                          </div>
                          <div>
-                         <i class="fa-solid fa-arrow-right text-danger text-left" onClick="arrowButton('${card.id}')"></i>
+                         <i class="fa-solid fa-arrow-right text-danger text-left" onClick="arrowButton('${card.id}')" for="my-modal-3"></i>
                          </div>
                         </div>
                 </div>
@@ -55,6 +55,7 @@ const displayCards = (cards) => {
 
 // see more button 
 const seeMore = async () => {
+    toggleSpinner(true);
     const URL = `https://openapi.programming-hero.com/api/ai/tools/`;
     const res = await fetch(URL);
     const data = await res.json();
@@ -63,6 +64,7 @@ const seeMore = async () => {
 
 // arrow button 
 const arrowButton = (id) => {
+    
     //console.log(id)
 
     const url = ` https://openapi.programming-hero.com/api/ai/tool/${id}`;
@@ -74,7 +76,7 @@ const arrowButton = (id) => {
 
 // modal section 
 
-/*const showModal = (value) => {
+/*const showModal = (data) => {
     const container = document.getElementById("modal-info");
     const div = document.createElement("div");
     div.classList.add("modal");
@@ -90,12 +92,24 @@ const arrowButton = (id) => {
     <h3 class="text-lg font-bold">
     </h3>
     <p class="py-4">
-      Population : '${value.tool_name}'
+      Population : '${data.tool_name}'
     </p>
   </div>
     `;
     container.appendChild(div);
 };*/
+
+// spinner section 
+
+const toggleSpinner =isLoading =>{
+    const spinnerSection =document.getElementById('spinner');
+    if(isLoading){
+        spinnerSection.classList.remove('d-none');
+    }
+    else{
+        spinnerSection.classList.add('d-none')
+    }
+};
 
 arrowButton();
 loadCards();

@@ -41,7 +41,7 @@ const displayCards = (cards) => {
 
                          </div>
                          <div>
-                         <i class="fa-solid fa-arrow-right text-danger text-left" onClick="arrowButton('${card.id}')" for="my-modal-3"></i>
+                         <i class="fa-solid fa-arrow-right text-danger text-left" onClick="arrowButton('${card.id}')" data-bs-toggle="modal" data-bs-target="#cardDetailsModal"></i>
                          </div>
                         </div>
                 </div>
@@ -64,49 +64,33 @@ const seeMore = async () => {
 
 // arrow button 
 const arrowButton = (id) => {
-    
+
     //console.log(id)
 
     const url = ` https://openapi.programming-hero.com/api/ai/tool/${id}`;
     fetch(url)
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => //showModal(data)
+        console.log(data))
 };
 
 
 // modal section 
 
-/*const showModal = (data) => {
-    const container = document.getElementById("modal-info");
-    const div = document.createElement("div");
-    div.classList.add("modal");
-    div.innerHTML = `
+const showModal = (card) => {
+
+    console.log(card);
     
-    <div class="modal-box relative">
-    <label
-      for="my-modal-3"
-      class="btn btn-sm btn-circle absolute right-2 top-2"
-      >✕</label
-    >
-    <img src="" alt="">
-    <h3 class="text-lg font-bold">
-    </h3>
-    <p class="py-4">
-      Population : '${data.tool_name}'
-    </p>
-  </div>
-    `;
-    container.appendChild(div);
-};*/
+};
 
 // spinner section 
 
-const toggleSpinner =isLoading =>{
-    const spinnerSection =document.getElementById('spinner');
-    if(isLoading){
+const toggleSpinner = isLoading => {
+    const spinnerSection = document.getElementById('spinner');
+    if (isLoading) {
         spinnerSection.classList.remove('d-none');
     }
-    else{
+    else {
         spinnerSection.classList.add('d-none')
     }
 };

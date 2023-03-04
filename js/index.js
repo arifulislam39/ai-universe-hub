@@ -76,14 +76,14 @@ const arrowButton = (id) => {
 
 
 // modal section 
-const displayCardDetails=(card)=>{
+const displayCardDetails = (card) => {
 
     console.log(card)
-    const container =document.getElementById('exampleModal');
-   container.innerHTML = "";
-    const div =document.createElement('div');
+    const container = document.getElementById('exampleModal');
+    container.innerHTML = "";
+    const div = document.createElement('div');
     div.classList.add("modal-dialog");
-    div.innerHTML=`
+    div.innerHTML = `
     <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -93,15 +93,36 @@ const displayCardDetails=(card)=>{
                             
                             <div class="card" style="width: 50%;">
   <div class="card-body bg-danger-subtle">
-    <p class="card-text">${card.data.description ? card.data.description : 'No Data Found' }</p>
+    <p class="card-text">${card.data.description ? card.data.description : 'No Data Found'}</p>
+    <div class="d-flex justify-content-between"><div><h3>${card.data.pricing}</h3></div><div></div><div></div>
+    </div>
+    <div class="d-flex justify-content-between">
+    <div>
+    <h5 class="card-title">Features</h5>
+    <ul>
+    <li>${card.features ? card.features : 'No Data Found'}</li><li>${card.features ? card.features : 'No Data Found'}</li>
+    <li>${card.features ? card.features : 'No Data Found'}</li>
+    </ul>
+
+    </div><div>
+    <h5 class="card-title">Integrations</h5>
+    <ul><li>${card.integrations ? card.integrations : 'No Data Found'}</li><li>${card.integrations ? card.integrations : 'No Data Found'}</li><li>${card.integrations ? card.integrations : 'No Data Found'}</li>
+    </ul>
+    </div>
+    </div>
+
   </div>
 </div>
 
 
 <div class="card" style="width: 50%;">
-  <img src="..." class="card-img-top" alt="...">
+
+  <img  src="${card.data.image_link ? card.data.image_link : 'No data Found'}" class="card-img-top" alt="..." >
   <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  <h2>${card.data.input_output_examples
+        }</h2>
+    <p class="card-text">${card.data.input_output_examples
+        }</p>
   </div>
 </div>
 
@@ -110,15 +131,6 @@ const displayCardDetails=(card)=>{
     `;
     container.appendChild(div);
 }
-
-// const displayCardDetails=(card)=>{
-//     console.log(card);
-//     const cardTitle =document.getElementById('cardDetailModalLabel');
-//     cardTitle.innerText=card.data.description;
-//     const cardDetailImag=document.getElementById('car-Detail-Img');
-//     cardDetailImag.innerText=card.data.logo.jpg;
-
-// }
 
 
 // spinner section 

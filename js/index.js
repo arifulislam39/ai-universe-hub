@@ -1,138 +1,87 @@
-
-// load all cards 
-
 const loadCards = async () => {
-    const URL = `https://openapi.programming-hero.com/api/ai/tools/`;
+    const URL = `https://openapi.programming-hero.com/api/ai/tools`;
     const res = await fetch(URL);
     const data = await res.json();
     displayCards(data.data.tools.slice(0, 6));
-}
-
-// display all cards 
-const displayCards = (cards) => {
-    toggleSpinner(false);
-
-    CardsContainer = document.getElementById('cards-container');
-    CardsContainer.innerHTML = "";
-    cards.forEach(card => {
-        //console.log(card.id)
-        const cardDiv = document.createElement('div');
-        cardDiv.classList.add('div');
-        cardDiv.innerHTML = `
-        <div class="card h-100">
-            <img src="${card.image}" class="card-img-top p-4 rounded-5" alt="...">
-                <div class="card-body">
-                        <h5 class="card-title">Features
-                        </h5>
-                        <ol>
-                        <li>${card.features[0] ? card.features[0] : 'No Data Found'}</li>
-                        <li>${card.features[1] ? card.features[1] : 'No Data Found'}</li>
-                        <li>${card.features[2] ? card.features[2] : 'No Data Found'}</li>
-                        </ol>
-                        <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-                        <h5 class="card-title">${card.name}</h5>
-
-                        <div class="d-flex justify-content-between">
-                         <div class="d-flex">
-
-                          <div><i class="fa-regular fa-calendar-days"></i></div>
-
-                          <div><p class="card-text">${card.published_in}</p></div>
-
-                         </div>
-                         <div>
-                         <i class="fa-solid fa-arrow-right text-danger" onClick="arrowButton('${card.id}')" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-                         </div>
-                        </div>
-                </div>
-         </div>
-        `;
-        CardsContainer.appendChild(cardDiv);
-
-    });
-}
-
-
-// see more button 
-const seeMore = async () => {
+    seeMoreBtn(true);
     toggleSpinner(true);
-    const URL = `https://openapi.programming-hero.com/api/ai/tools/`;
+    
+}
+
+
+
+const displayCards = cards => {
+    
+    //console.log(cards)
+
+    cardsContainer = document.getElementById('cards-container');
+    cards.forEach(card => {
+        //console.log(card.features)
+        const div = document.createElement('div');
+        div.classList.add("col");
+        div.innerHTML = `
+        <div class="card">
+            <img src="${card.image}" class="card-img-top rounded-5 p-4" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Features</h5>
+                <ol>
+                <li>${card.features[0] ? card.features[0] : "No found data"}</li>
+                <li>${card.features[1] ? card.features[1] : "No found data"}</li>
+                <li>${card.features[2] ? card.features[2] : "No found data"}</li>
+                </ol>
+                <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+                <h5 class="card-title">${card.name}</h5>
+                <div class="d-flex justify-content-between">
+                <div class="d-flex align-items-center">
+                <i class="fa-regular fa-calendar-days me-2"></i>
+                <p class="card-text">${card.published_in}</p>
+                </div>
+
+                <i class="fa-solid fa-arrow-right text-danger bg-danger-subtle rounded-circle"></i>
+
+                 <button type="button" class="btn btn-danger"
+                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onClick="arrowButton('${card.id}')"
+                data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Custom button
+                </button>
+                </div>
+            </div>
+        </div>
+        `;
+
+        cardsContainer.appendChild(div);
+    })
+}
+
+// see more btn section 
+
+const seeMoreBtn = isShowing => {
+    const showMoreBtnSection = document.getElementById('see-more');
+    if (isShowing) {
+        showMoreBtnSection.classList.remove('d-none');
+    }
+    else {
+        showMoreBtnSection.classList.add('d-none')
+    }
+}
+
+
+const seeMore = async () => {
+    toggleSpinner(false);
+    const URL = `https://openapi.programming-hero.com/api/ai/tools`;
     const res = await fetch(URL);
     const data = await res.json();
     displayCards(data.data.tools);
-}
-
-// arrow button 
-const arrowButton = (id) => {
-
-    //console.log(id)
-
-    const url = ` https://openapi.programming-hero.com/api/ai/tool/${id}`;
-    fetch(url)
-        .then(res => res.json())
-        .then(data => displayCardDetails(data)
-        );
-};
+    seeMoreBtn(false)
 
 
-// modal section 
-const displayCardDetails = (card) => {
-
-    console.log(card)
-    const container = document.getElementById('exampleModal');
-    container.innerHTML = "";
-    const div = document.createElement('div');
-    div.classList.add("modal-dialog");
-    div.innerHTML = `
-    <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="d-flex justify-content-center gap-5 modal-body">
-                            
-                            <div class="card" style="width: 50%;">
-  <div class="card-body bg-danger-subtle">
-    <p class="card-text">${card.data.description ? card.data.description : 'No Data Found'}</p>
-    <div class="d-flex justify-content-between"><div><h3>${card.data.pricing}</h3></div><div></div><div></div>
-    </div>
-    <div class="d-flex justify-content-between">
-    <div>
-    <h5 class="card-title">Features</h5>
-    <ul>
-    <li>${card.features ? card.features : 'No Data Found'}</li><li>${card.features ? card.features : 'No Data Found'}</li>
-    <li>${card.features ? card.features : 'No Data Found'}</li>
-    </ul>
-
-    </div><div>
-    <h5 class="card-title">Integrations</h5>
-    <ul><li>${card.integrations ? card.integrations : 'No Data Found'}</li><li>${card.integrations ? card.integrations : 'No Data Found'}</li><li>${card.integrations ? card.integrations : 'No Data Found'}</li>
-    </ul>
-    </div>
-    </div>
-
-  </div>
-</div>
-
-
-<div class="card" style="width: 50%;">
-
-  <img  src="${card.data.image_link ? card.data.image_link : 'No data Found'}" class="card-img-top" alt="..." >
-  <div class="card-body">
-  <h2>${card.data.input_output_examples
-        }</h2>
-    <p class="card-text">${card.data.input_output_examples
-        }</p>
-  </div>
-</div>
-
-                            </div>
-                        </div>
-    `;
-    container.appendChild(div);
 }
 
 
+
+
+
+// spinner or loader section 
 // spinner section 
 
 const toggleSpinner = isLoading => {
@@ -145,5 +94,75 @@ const toggleSpinner = isLoading => {
     }
 };
 
-arrowButton();
+// arrow button section 
+
+const arrowButton = id => {
+
+    const url = ` https://openapi.programming-hero.com/api/ai/tool/${id}`;
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayCardDetails(data)
+        );
+};
+
+
+
+
+// modal section 
+
+const displayCardDetails = (detail) => {
+
+    console.log(detail.data.features[1].feature_name)
+    //console.log(detail.data.integrations[0])
+
+    //console.log(detail);
+    const container = document.getElementById('exampleModal');
+    container.innerHTML = "";
+    const div = document.createElement('div');
+    div.classList.add("modal-dialog");
+    div.innerHTML = `
+    
+                <div class="modal-content">
+                        <div class="modal-header ">
+                            <img src="" alt="" srcset="">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body d-flex justify-content-center gap-5">
+
+                        
+                        <div class="card" style="width: 50%;">
+                        <div class="card-body">
+                        <p class="card-text">${detail.data.features[1].feature_name? detail.data.features[1].feature_name: 'no data found'}</p>
+                        <p class="card-text">${detail.data.features[2].feature_name? detail.data.features[2].feature_name: 'no data found'}</p>
+                        <p class="card-text">${detail.data.features[3].feature_name? detail.data.features[3].feature_name: 'no data found'}</p>
+                        <p>${detail.data.integrations[0]}</p>
+                        <p>${detail.data.integrations[1]}</p>
+                        <p>${detail.data.integrations[2]}</p>
+                        </div>
+                        </div>
+
+                    
+                        <div class="card" style="width: 50%;">
+                        <img src="${detail.data.image_link?detail.data.image_link:'no img found'}"
+                         class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                        </div>
+
+                        
+
+                        </div>
+                 </div>
+    `;
+    container.appendChild(div);
+
+}
+
+
+
+
 loadCards();
+arrowButton();
+//seeMore();
+

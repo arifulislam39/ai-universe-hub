@@ -1,10 +1,11 @@
+
 const loadCards = async () => {
     const URL = `https://openapi.programming-hero.com/api/ai/tools`;
     const res = await fetch(URL);
     const data = await res.json();
     displayCards(data.data.tools.slice(0, 6));
     seeMoreBtn(true);
-    toggleSpinner(true);
+    toggleSpinner(false)
 
 }
 
@@ -113,7 +114,7 @@ const arrowButton = id => {
 const displayCardDetailsModal = (detail) => {
 
 
-     console.log(detail.data.pricing)
+     //console.log(detail.data.pricing)
 
     document.getElementById('modal-description').innerText = detail.data.description;
 
@@ -177,22 +178,41 @@ const displayCardDetailsModal = (detail) => {
 
 }
 
-//${detail.data.features[2].feature_name? detail.data.features[2].feature_name: 'no data found'}
 
 
 
-// sorting by date 
+ //sorting by date 
 
-// document.getElementById('sort-by-date').addEventListener('click', function(){
-//     console.log('hello')
-// })
+//  document.getElementById('sort-by-date').addEventListener('click', function(){
+//     arrayList.sort((a, b)=>new Date(b.published_in)-new Date(a.published_in));
+
+//    console.log(allData)
 
 
-// let myArray =[];
-// function byDate (a, b){
+//  })
+
+
+
+ const arrayList = async () => {
+    const URL = `https://openapi.programming-hero.com/api/ai/tools`;
+    const res = await fetch(URL);
+    const Data = await res.json();
+    console.log(Data.data.tools)
+
+
+}
+
+//arrayList();
+
+
+
+
+//  let myArray =[];
+//  function byDate (a, b){
 //     const serialDate = new Date(a.arr).valueOf()-new Date (b.arr).valueOf();
 //     return serialDate;
-// }
+//  }
+//  console.log(serialDate)
 
 
 

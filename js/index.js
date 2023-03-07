@@ -1,4 +1,4 @@
-
+// 6 cards load 
 const loadCards = async () => {
     const URL = `https://openapi.programming-hero.com/api/ai/tools`;
     const res = await fetch(URL);
@@ -11,6 +11,7 @@ const loadCards = async () => {
 }
 
 
+// cards information 
 
 const displayCards = cards => {
 
@@ -100,7 +101,7 @@ const toggleSpinner = isLoading => {
     }
 };
 
-// arrow button section 
+// details button section 
 
 const detailsBtn = id => {
 
@@ -125,17 +126,16 @@ const displayCardDetailsModal = (detail) => {
 
 
     // pricing section 
+    // box 1
+    document.getElementById('box-one').innerHTML = `${detail.data.pricing !== null ? detail.data.pricing['0'].price : 'Free of Cost'} ${detail.data.pricing !== null ? detail.data.pricing['0'].plan : '/Basic'}`;
+    // box 2
+    document.getElementById('box-two').innerHTML = `${detail.data.pricing !== null ? detail.data.pricing['1'].price : 'Free of Cost'} ${detail.data.pricing !== null ? detail.data.pricing['1'].plan : '/Pro'}`;
+    // box 3
+    document.getElementById('box-three').innerHTML = `${detail.data.pricing !== null ? detail.data.pricing['2'].price : 'Free of Cost'} ${detail.data.pricing !== null ? detail.data.pricing['2'].plan : '/Enterprise'}`;
+    console.log(detail.data.pricing)
 
-    document.getElementById('box-one').innerHTML = `${detail.data.pricing !== null ? detail.data.pricing['0'].price : 'no data found'} ${detail.data.pricing !== null ? detail.data.pricing['0'].plan : 'no data found'}`;
-    document.getElementById('box-two').innerHTML = `${detail.data.pricing !== null ? detail.data.pricing['1'].price : 'no data found'} ${detail.data.pricing !== null ? detail.data.pricing['1'].plan : 'no data found'}`;
-    document.getElementById('box-three').innerHTML = `${detail.data.pricing !== null ? detail.data.pricing['2'].price : 'no data found'} ${detail.data.pricing !== null ? detail.data.pricing['2'].plan : 'no data found'}`;
 
-
-
-
-
-
-    // features Section
+    //Modal features Section
 
     const convertObj = Object.values(detail.data.features);
 
@@ -152,13 +152,14 @@ const displayCardDetailsModal = (detail) => {
     })
 
 
-    // integrations Section
+    //Modal integrations Section
 
     const getIntegrations = detail.data.integrations;
     // console.log(detail.data.integrations)
     if (getIntegrations === null) {
 
         const integrationsSection = document.getElementById('Integration-section');
+        integrationsSection.innerHTML = "";
         const integrationsElement = document.createElement('li');
         integrationsElement.innerHTML = `<li>No data found`;
         integrationsSection.appendChild(integrationsElement);
@@ -166,10 +167,6 @@ const displayCardDetailsModal = (detail) => {
         // console.log('nothing show')
     }
     else {
-        // getIntegrations.forEach(inform => {
-        //     console.log(inform)
-
-        // })
 
         const integrationsSection = document.getElementById('Integration-section');
         integrationsSection.innerHTML = "";
@@ -190,23 +187,24 @@ const displayCardDetailsModal = (detail) => {
     document.getElementById('modal-img').src = `${detail.data.
         image_link['0']}`;
 
-    // btn-accuracy
-
-
-    // const accuracyData = detail.Data.accuracy.score;
-    // console.log(accuracyData);
-    // if (accuracyData === null) {
-    //     document.getElementById('btn-accuracy').classList.add('d-none')
-    //          console.log(accuracyData)
-    // }
-    // else {
-    //         console.log('hello bye')
-    //     document.getElementById('btn-accuracy').innerText = `${detail.data.accuracy.score * 100}%accuracy`;
-
-
-    // }
-
-    document.getElementById('btn-accuracy').innerText = `${detail.data.accuracy.score === null ?'no':detail.data.accuracy.score * 100}%accuracy`;
+    // btn-accuracy section
+    const btnAccuracy = document.getElementById('btn-accuracy');
+    btnAccuracy.innerHTML = "";
+    const btnAccuracyDiv = document.createElement('div');
+    btnAccuracyDiv.innerHTML = `<button style="position: absolute;
+    margin: 0;
+    top: 2%;
+    left: 70%;
+    background-color: #fb5353;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;" class="  ${detail.data.accuracy.score ? 'd-block' : 'd-none'} ">${detail.data.accuracy.score === null ? 'no' : detail.data.accuracy.score * 100}%accuracy</button>
+        
+        `;
+    btnAccuracy.appendChild(btnAccuracyDiv)
 
 
 
@@ -224,15 +222,13 @@ const displayCardDetailsModal = (detail) => {
 }
 
 
-
-
 //sorting by date 
 
 const sortByDate = (data) => {
     document.getElementById('sort-by-date').addEventListener('click', () => {
         const sortArrayData = data.sort(
-            (a, b) =>
-                new Date(a.published_in).getTime() - new Date(b.published_in).getTime()
+            (x, y) =>
+                new Date(x.published_in).getTime() - new Date(y.published_in).getTime()
         );
         displayCards(sortArrayData);
     });
@@ -243,5 +239,5 @@ const sortByDate = (data) => {
 
 
 loadCards();
-arrowButton();
+detailsBtn();
 

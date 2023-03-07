@@ -168,7 +168,7 @@ const displayCardDetailsModal = (detail) => {
         const integrationsSection = document.getElementById('Integration-section');
         integrationsSection.innerHTML = "";
         getIntegrations.forEach(integration => {
-            console.log(integration)
+            //console.log(integration)
 
 
             const integrationsElement = document.createElement('li');
@@ -178,38 +178,36 @@ const displayCardDetailsModal = (detail) => {
             integrationsSection.appendChild(integrationsElement)
         })
     }
-    // const integrationsSection = document.getElementById('Integration-section');
-    // integrationsSection.innerHTML = "";
-    // getIntegrations.forEach(integration => {
-    //     console.log(integration)
-
-
-    //     const integrationsElement = document.createElement('li');
-    //     integrationsElement.innerHTML = `
-    //      ${integration}
-    //  `;
-    //     integrationsSection.appendChild(integrationsElement)
-    // })
-
-
-    // if(tasks === null) {
-    //     console.log('no tasks')
-    //   } else {
-    //     tasks.forEach(function(task){
-    //       console.log(task);
-    //     });
-    //   }
 
 
     // modal image 
-    document.getElementById('modal-img').src = `${detail.data.image_link !== null ? detail.data.image_link['0'] : 'no img'}`
+    document.getElementById('modal-img').src = `${detail.data.
+    image_link['0']}`;
+
+    // btn-accuracy
+
+
+    // const accuracyData =detail.Data.accuracy.score;
+    //  console.log(accuracyData);
+    // if(accuracyData === null){
+    //     console.log(accuracyData)
+    // }
+    // else{
+    //     console.log('hello bye')
+
+    //     document.getElementById('btn-accuracy').innerText=`${detail.data.accuracy.score*100}%accuracy`;
+    // }
+
+    
+
+    document.getElementById('btn-accuracy').innerText=`${detail.data.accuracy.score*100}%accuracy`;
 
     // input & output section 
     document.getElementById('input-section').
-        innerHTML = `${detail.data.input_output_examples === null ? 'no data found' : detail.data.input_output_examples['0'].input}`;
+        innerHTML = `${detail.data.input_output_examples === null ? 'Can you give any example?' : detail.data.input_output_examples['0'].input}`;
 
     document.getElementById('output-section').
-        innerHTML = `${detail.data.input_output_examples === null ? 'no data found' : detail.data.input_output_examples['1'].output}`;
+        innerHTML = `${detail.data.input_output_examples === null ? 'No! Not yet!! Take a break!!!' : detail.data.input_output_examples['1'].output}`;
     //console.log(detail.data.input_output_examples)
 
 

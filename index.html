@@ -12,6 +12,23 @@
 
 
     <script src="https://kit.fontawesome.com/0e7ec65463.js" crossorigin="anonymous"></script>
+     
+    <!-- btn-accuracy -->
+    <style>
+        .btn_accuracy {
+            position: absolute;
+            margin: 0;
+            top: 2%;
+            left: 75%;
+            background-color: #fb5353;
+            color: white;
+            font-size: 16px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -22,7 +39,8 @@
             <h1 class="mt-3">AI Universe Hub</h1>
 
             <!-- sort by date btn  -->
-            <button onclick="arrayList()" id="sort-by-date" type="button" class="btn btn-danger mb-5 mt-3 p-10">Sort By Date</button>
+            <button onclick="arrayList()" id="sort-by-date" type="button" class="btn btn-danger mb-5 mt-3 p-10">Sort By
+                Date</button>
         </div>
     </header>
     <main>
@@ -74,7 +92,7 @@
                             <!-- description section -->
 
                             <div class="col border border-danger rounded">
-                                
+
                                 <div class="card h-100">
 
 
@@ -112,8 +130,9 @@
                             <!-- img section  -->
                             <div class="col">
                                 <div class="card h-100">
-
-                                    <img class=" card-img-top p-3 " id="modal-img">
+                                    <div><button class="btn_accuracy" id="btn-accuracy"></button>
+                                        <img class=" card-img-top p-3 " id="modal-img">
+                                    </div>
                                     <div class="card-body">
 
                                         <h5 class="card-title text-center" id="input-section"></h5>

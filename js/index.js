@@ -6,6 +6,7 @@ const loadCards = async () => {
     displayCards(data.data.tools.slice(0, 6));
     seeMoreBtn(true);
     toggleSpinner(false)
+    sortByDate(data.data.tools.slice(0, 6))
 
 }
 
@@ -41,7 +42,7 @@ const displayCards = cards => {
 
 
                  <button type="button" class="btn btn-danger"
-                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onClick="arrowButton('${card.id}')"
+                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onClick="detailsBtn('${card.id}')"
                 data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Details
                 </button>
@@ -51,7 +52,11 @@ const displayCards = cards => {
         `;
 
         cardsContainer.appendChild(div);
+
     })
+
+    sortByDate(cards)
+
 }
 
 // see more btn section 
@@ -97,7 +102,7 @@ const toggleSpinner = isLoading => {
 
 // arrow button section 
 
-const arrowButton = id => {
+const detailsBtn = id => {
 
     const url = ` https://openapi.programming-hero.com/api/ai/tool/${id}`;
     fetch(url)
@@ -150,14 +155,15 @@ const displayCardDetailsModal = (detail) => {
     // integrations Section
 
     const getIntegrations = detail.data.integrations;
+    // console.log(detail.data.integrations)
     if (getIntegrations === null) {
 
         const integrationsSection = document.getElementById('Integration-section');
         const integrationsElement = document.createElement('li');
-            integrationsElement.innerHTML =`<li>No data found`;
-            integrationsSection.appendChild(integrationsElement);
+        integrationsElement.innerHTML = `<li>No data found`;
+        integrationsSection.appendChild(integrationsElement);
 
-       // console.log('nothing show')
+        // console.log('nothing show')
     }
     else {
         // getIntegrations.forEach(inform => {
@@ -182,25 +188,28 @@ const displayCardDetailsModal = (detail) => {
 
     // modal image 
     document.getElementById('modal-img').src = `${detail.data.
-    image_link['0']}`;
+        image_link['0']}`;
 
     // btn-accuracy
 
 
-    // const accuracyData =detail.Data.accuracy.score;
-    //  console.log(accuracyData);
-    // if(accuracyData === null){
-    //     console.log(accuracyData)
+    // const accuracyData = detail.Data.accuracy.score;
+    // console.log(accuracyData);
+    // if (accuracyData === null) {
+    //     document.getElementById('btn-accuracy').classList.add('d-none')
+    //          console.log(accuracyData)
     // }
-    // else{
-    //     console.log('hello bye')
+    // else {
+    //         console.log('hello bye')
+    //     document.getElementById('btn-accuracy').innerText = `${detail.data.accuracy.score * 100}%accuracy`;
 
-    //     document.getElementById('btn-accuracy').innerText=`${detail.data.accuracy.score*100}%accuracy`;
+
     // }
 
-    
+    document.getElementById('btn-accuracy').innerText = `${detail.data.accuracy.score === null ?'no':detail.data.accuracy.score * 100}%accuracy`;
 
-    document.getElementById('btn-accuracy').innerText=`${detail.data.accuracy.score*100}%accuracy`;
+
+
 
     // input & output section 
     document.getElementById('input-section').
@@ -219,36 +228,15 @@ const displayCardDetailsModal = (detail) => {
 
 //sorting by date 
 
-//  document.getElementById('sort-by-date').addEventListener('click', function(){
-//     arrayList.sort((a, b)=>new Date(b.published_in)-new Date(a.published_in));
-
-//    console.log(allData)
-
-
-//  })
-
-
-
-const arrayList = async () => {
-    const URL = `https://openapi.programming-hero.com/api/ai/tools`;
-    const res = await fetch(URL);
-    const Data = await res.json();
-    // console.log(Data.data.tools)
-
-
-}
-
-//arrayList();
-
-
-
-
-//  let myArray =[];
-//  function byDate (a, b){
-//     const serialDate = new Date(a.arr).valueOf()-new Date (b.arr).valueOf();
-//     return serialDate;
-//  }
-//  console.log(serialDate)
+const sortByDate = (data) => {
+    document.getElementById('sort-by-date').addEventListener('click', () => {
+        const sortArrayData = data.sort(
+            (a, b) =>
+                new Date(a.published_in).getTime() - new Date(b.published_in).getTime()
+        );
+        displayCards(sortArrayData);
+    });
+};
 
 
 
@@ -256,5 +244,4 @@ const arrayList = async () => {
 
 loadCards();
 arrowButton();
-//seeMore();
 

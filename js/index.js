@@ -114,23 +114,23 @@ const arrowButton = id => {
 const displayCardDetailsModal = (detail) => {
 
 
-     //console.log(detail.data.pricing)
+    console.log(detail.data)
 
     document.getElementById('modal-description').innerText = detail.data.description;
 
 
     // pricing section 
-    
-    document.getElementById('box-one').innerHTML=`${detail.data.pricing['0'].price} ${detail.data.pricing['0'].plan}`;
-    document.getElementById('box-two').innerHTML=`${detail.data.pricing['1'].price} ${detail.data.pricing['1'].plan}`;
-    document.getElementById('box-three').innerHTML=`${detail.data.pricing['2'].price} ${detail.data.pricing['2'].plan}`;
+
+    document.getElementById('box-one').innerHTML = `${detail.data.pricing !== null ? detail.data.pricing['0'].price : 'no data found'} ${detail.data.pricing !== null ? detail.data.pricing['0'].plan : 'no data found'}`;
+    document.getElementById('box-two').innerHTML = `${detail.data.pricing !== null ? detail.data.pricing['1'].price : 'no data found'} ${detail.data.pricing !== null ? detail.data.pricing['1'].plan : 'no data found'}`;
+    document.getElementById('box-three').innerHTML = `${detail.data.pricing !== null ? detail.data.pricing['2'].price : 'no data found'} ${detail.data.pricing !== null ? detail.data.pricing['2'].plan : 'no data found'}`;
 
 
 
 
-    
 
-// features Section
+
+    // features Section
 
     const convertObj = Object.values(detail.data.features);
 
@@ -150,38 +150,76 @@ const displayCardDetailsModal = (detail) => {
     // integrations Section
 
     const getIntegrations = detail.data.integrations;
-    const integrationsSection = document.getElementById('Integration-section');
-    integrationsSection.innerHTML = "";
-    getIntegrations.forEach(integration => {
-        
+    if (getIntegrations === null) {
 
+        const integrationsSection = document.getElementById('Integration-section');
         const integrationsElement = document.createElement('li');
-        integrationsElement.innerHTML = `
-         ${integration?integration:'No data found'}
+            integrationsElement.innerHTML =`<li>No data found`;
+            integrationsSection.appendChild(integrationsElement);
+
+       // console.log('nothing show')
+    }
+    else {
+        // getIntegrations.forEach(inform => {
+        //     console.log(inform)
+
+        // })
+
+        const integrationsSection = document.getElementById('Integration-section');
+        integrationsSection.innerHTML = "";
+        getIntegrations.forEach(integration => {
+            console.log(integration)
+
+
+            const integrationsElement = document.createElement('li');
+            integrationsElement.innerHTML = `
+         ${integration}
      `;
-        integrationsSection.appendChild(integrationsElement)
-    })
+            integrationsSection.appendChild(integrationsElement)
+        })
+    }
+    // const integrationsSection = document.getElementById('Integration-section');
+    // integrationsSection.innerHTML = "";
+    // getIntegrations.forEach(integration => {
+    //     console.log(integration)
+
+
+    //     const integrationsElement = document.createElement('li');
+    //     integrationsElement.innerHTML = `
+    //      ${integration}
+    //  `;
+    //     integrationsSection.appendChild(integrationsElement)
+    // })
+
+
+    // if(tasks === null) {
+    //     console.log('no tasks')
+    //   } else {
+    //     tasks.forEach(function(task){
+    //       console.log(task);
+    //     });
+    //   }
 
 
     // modal image 
-    document.getElementById('modal-img').src = detail.data.image_link['0']
+    document.getElementById('modal-img').src = `${detail.data.image_link !== null ? detail.data.image_link['0'] : 'no img'}`
 
     // input & output section 
     document.getElementById('input-section').
-    innerText = detail.data.input_output_examples['0'].input;
+        innerHTML = `${detail.data.input_output_examples === null ? 'no data found' : detail.data.input_output_examples['0'].input}`;
 
     document.getElementById('output-section').
-    innerText = detail.data.input_output_examples['1'].output;
+        innerHTML = `${detail.data.input_output_examples === null ? 'no data found' : detail.data.input_output_examples['1'].output}`;
     //console.log(detail.data.input_output_examples)
- 
-    
+
+
 
 }
 
 
 
 
- //sorting by date 
+//sorting by date 
 
 //  document.getElementById('sort-by-date').addEventListener('click', function(){
 //     arrayList.sort((a, b)=>new Date(b.published_in)-new Date(a.published_in));
@@ -193,11 +231,11 @@ const displayCardDetailsModal = (detail) => {
 
 
 
- const arrayList = async () => {
+const arrayList = async () => {
     const URL = `https://openapi.programming-hero.com/api/ai/tools`;
     const res = await fetch(URL);
     const Data = await res.json();
-    console.log(Data.data.tools)
+    // console.log(Data.data.tools)
 
 
 }
